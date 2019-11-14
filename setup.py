@@ -9,7 +9,7 @@ setup(
     long_description_markdown_filename='README.md',
     py_modules=['python_extrac/extrac'],
     license='MIT',
-    url='https://github.com/belingud/extrac',
+    url='https://github.com/belingud/python_extrac',
 
     author="belingud",
     auth_email="zyx@lte.ink",
@@ -22,6 +22,11 @@ setup(
     ],
     scripts=['python_extrac/extrac.py'],
     entry_points={
-        'console_scripts': ['ali=extrac:cli']
-    }
+        'console_scripts': ['x=extrac:cli']
+    },
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
 )
