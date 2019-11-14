@@ -16,8 +16,10 @@ from python_extrac.utils import check_is_file, decompression, del_file
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
+help_string = 'this is a magic command line tool to unpack archives, only use one command "x FILE", enjoy it'
 
-@click.command(context_settings=CONTEXT_SETTINGS)
+
+@click.command(context_settings=CONTEXT_SETTINGS, help=help_string)
 @click.option('-r', '--remove', default=0, type=click.INT,
               help='remove the archive after unpacking', is_flag=True, required=False)
 @click.argument('file_path', type=click.Path(exists=True), default=None, nargs=-1)
