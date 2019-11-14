@@ -5,6 +5,8 @@ __pycache__/
 dist/
 build/
 .git/
+.idea/
+.vscode/
 # C extensions
 *.so
 
