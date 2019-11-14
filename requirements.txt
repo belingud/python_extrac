@@ -1,3 +1,1 @@
 click>=7.0
-pyinstaller>=3.5
-ipython>=7.8
