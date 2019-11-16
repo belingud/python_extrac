@@ -1,8 +1,9 @@
 
 """
-pip install --user --upgrade setuptools wheel
-python3 setup.py sdist bdist_wheel
-pip install --user --upgrade twine
-pip install --user --upgrade twine
-twine upload -u belingud -p [file_path]
+$ pip install --user --upgrade setuptools wheel twine
+$ python3 setup.py sdist bdist_wheel
+$ twine upload -u belingud -p [file_path]
+
+add docs
+$ sudo apt-get install python3-sphinx
 """
