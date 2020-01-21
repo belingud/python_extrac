@@ -41,7 +41,7 @@ def valid_file(file_path):
     """
     unsupported file, exit the program
     """
-    import click
+    # import click
     import sys
     sys.exit(
         'valid file type, "{file}" is not an compressed file'.format(file=file_path))
@@ -53,7 +53,7 @@ def judge_the_file(file_path: str) -> str:
     :param file_path:
     :return:
     """
-    import click
+    # import click
     _file_name_list = file_path.split('.')[-2:]
     judge_type = []
     for suffix in _file_name_list:
@@ -69,7 +69,7 @@ def judge_the_file(file_path: str) -> str:
         if not no_repeat_list[0].startswith('t'):
             no_repeat_list[0], no_repeat_list[1] = no_repeat_list[1], no_repeat_list[0]
             result.extend(no_repeat_list)
-    click.echo('.'.join(result))
+    # click.echo('.'.join(result))
     return '.'.join(result)
 
 
@@ -90,7 +90,7 @@ def call_shell(command: str):
     :return:
     """
     import os
-    os.system(command)
+    return os.system(command)
 
 
 def decompression(file_path: str):
