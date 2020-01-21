@@ -1,0 +1,8 @@
+docker:
+  version: 0.0.1
+
+pypi:
+  version: 0.0.2
+
+git:
+  pull: True

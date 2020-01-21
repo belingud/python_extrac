@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 RUN sed -i -e "s/\/\/archive\.ubuntu/\/\/mirrors.aliyun/" /etc/apt/sources.list
-RUN apt-get update && apt-get install -y python3 vim python3-pip
+RUN apt-get update && apt-get install -y python3 vim python3-pip && apt clean
 RUN mkdir -p /code/git
 COPY test-requirements.txt /code/
 RUN pip3 install -r /code/test-requirements.txt -i https://pypi.douban.com/simple
