@@ -9,20 +9,20 @@
 
 _UNZIP_COMMAND = "{unzip} {file_path}"
 _RM_COMMAND = "rm {file_path}"
-_ZIP_LIST = ('zip', 'tar', 'gz', 'tgz', 'bz2', 'bz', 'Z', 'rar')
+_ZIP_LIST = ("zip", "tar", "gz", "tgz", "bz2", "bz", "Z", "rar")
 
 _ZIP_ARG = {
-    'rar': 'rar a',
-    'zip': 'unzip',
-    'tar.gz': 'tar -zxvf',
-    'tgz': 'tar -zxvf',
-    'gz': 'gunzip',
-    'Z': 'uncompress',
-    'tar.Z': 'tar -Zxvf',
-    'bz2': 'bunzip',
-    'tar.bz2': 'tar -jxvf',
-    'bz': 'zunzip2',
-    'tar.bz': 'tar -jxvf'
+    "rar": "yes Y | rar x",
+    "zip": "unzip",
+    "tar.gz": "tar -zxvf",
+    "tgz": "tar -zxvf",
+    "gz": "gunzip",
+    "Z": "uncompress",
+    "tar.Z": "tar -Zxvf",
+    "bz2": "bunzip",
+    "tar.bz2": "tar -jxvf",
+    "bz": "zunzip2",
+    "tar.bz": "tar -jxvf",
 }
 
 
@@ -34,6 +34,7 @@ def get_pwd_files(ctx, args, incomplete):
     # click.echo(ctx)
     # click.echo(incomplete)
     import os
+
     return os.listdir(os.getcwd())
 
 
@@ -43,8 +44,8 @@ def valid_file(file_path):
     """
     # import click
     import sys
-    sys.exit(
-        'valid file type, "{file}" is not an compressed file'.format(file=file_path))
+
+    sys.exit('valid file type, "{file}" is not an compressed file'.format(file=file_path))
 
 
 def judge_the_file(file_path: str) -> str:
@@ -54,7 +55,7 @@ def judge_the_file(file_path: str) -> str:
     :return:
     """
     # import click
-    _file_name_list = file_path.split('.')[-2:]
+    _file_name_list = file_path.split(".")[-2:]
     judge_type = []
     for suffix in _file_name_list:
         if suffix in _ZIP_LIST:
@@ -66,11 +67,11 @@ def judge_the_file(file_path: str) -> str:
     if len(no_repeat_list) == 1:
         result.extend(no_repeat_list)
     else:
-        if not no_repeat_list[0].startswith('t'):
+        if not no_repeat_list[0].startswith("t"):
             no_repeat_list[0], no_repeat_list[1] = no_repeat_list[1], no_repeat_list[0]
             result.extend(no_repeat_list)
     # click.echo('.'.join(result))
-    return '.'.join(result)
+    return ".".join(result)
 
 
 def make_full_path(file_path: str) -> str:
@@ -80,7 +81,8 @@ def make_full_path(file_path: str) -> str:
     :return:
     """
     import os
-    return '{cwd}/{file_path}'.format(cwd=os.getcwd(), file_path=file_path)
+
+    return "{cwd}/{file_path}".format(cwd=os.getcwd(), file_path=file_path)
 
 
 def call_shell(command: str):
@@ -90,6 +92,7 @@ def call_shell(command: str):
     :return:
     """
     import os
+
     return os.system(command)
 
 
@@ -99,8 +102,11 @@ def decompression(file_path: str):
     :param file_path:
     :return:
     """
-    call_shell(_UNZIP_COMMAND.format(
-        unzip=_ZIP_ARG[judge_the_file(file_path)], file_path=file_path))
+    call_shell(
+        _UNZIP_COMMAND.format(
+            unzip=_ZIP_ARG[judge_the_file(file_path)], file_path=file_path
+        )
+    )
 
 
 def del_file(file_path):
@@ -114,16 +120,21 @@ def del_file(file_path):
 
 def check_is_file(file_path):
     """
-    check the arg is a file or not 
+    check the arg is a file or not
     """
     import sys
     import os
+
     full_path = make_full_path(file_path)
     if not os.path.isfile(full_path):
         if not os.path.isdir(full_path):
             """ file_path is not a dir """
-            sys.exit('"{file_path}" is not a file, check again'.format(
-                file_path=file_path))
+            sys.exit(
+                '"{file_path}" is not a file, check again'.format(file_path=file_path)
+            )
         """ file_path is a dir """
-        sys.exit('"{file_path}" is a directory, not a file, please check again'.format(
-            file_path=file_path))
+        sys.exit(
+            '"{file_path}" is a directory, not a file, please check again'.format(
+                file_path=file_path
+            )
+        )
