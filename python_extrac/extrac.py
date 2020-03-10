@@ -4,7 +4,6 @@
 # @author [belingud]
 # @email [zyx@lte.ink]
 # @create date 2019-11-11
-# @modify date 2019-11-14
 # @desc [one command to unpack archives]
 
 import sys

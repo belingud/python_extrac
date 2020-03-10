@@ -1,0 +1,11 @@
+version: "2.2"
+services: 
+    extrac:
+        build: .
+        image: extrac:0.3
+        container_name: extrac_test
+        restart: on-failure
+        ports: 
+            - "8080:8080"
+        command: 
+            tail -f /dev/null

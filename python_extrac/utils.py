@@ -4,8 +4,14 @@
 # @author [belingud]
 # @email [zyx@lte.ink]
 # @create date 2019-11-11
-# @modify date 2019-11-14
 # @desc [one command to unpack archives]
+
+from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import unicode_literals
+
+import sys
+
 
 _UNZIP_COMMAND = "{unzip} {file_path}"
 _RM_COMMAND = "rm {file_path}"
@@ -24,6 +30,24 @@ _ZIP_ARG = {
     "bz": "zunzip2",
     "tar.bz": "tar -jxvf",
 }
+
+
+def get_logger():
+    """
+    get default logger with loguru
+    """
+    from loguru import logger
+
+    logger.add(
+        sys.stderr,
+        format="{time} {level} {message} {line}",
+        filter="extrac",
+        level="INFO",
+    )
+    return logger
+
+
+logger = get_logger()
 
 
 def get_pwd_files(ctx, args, incomplete):
@@ -54,7 +78,6 @@ def judge_the_file(file_path: str) -> str:
     :param file_path:
     :return:
     """
-    # import click
     _file_name_list = file_path.split(".")[-2:]
     judge_type = []
     for suffix in _file_name_list:
@@ -69,8 +92,8 @@ def judge_the_file(file_path: str) -> str:
     else:
         if not no_repeat_list[0].startswith("t"):
             no_repeat_list[0], no_repeat_list[1] = no_repeat_list[1], no_repeat_list[0]
-            result.extend(no_repeat_list)
-    # click.echo('.'.join(result))
+        result.extend(no_repeat_list)
+    logger.debug(".".join(result))
     return ".".join(result)
 
 
@@ -94,6 +117,24 @@ def call_shell(command: str):
     import os
 
     return os.system(command)
+
+
+def sh(command: str) -> str:
+    import subprocess
+
+    call_shell = subprocess.Popen(
+        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
+    )
+    stdout, __ = call_shell.communicate()
+    return stdout
+
+
+def command_exists(command: str) -> bool:
+    """
+    judge a command exists or not, provide a bool return
+    """
+    exists = call_shell('command -v {} || { echo "false"; }')
+    return False if exists == b"false\n" else True
 
 
 def decompression(file_path: str):

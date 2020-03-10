@@ -15,7 +15,7 @@ setup(
     packages=find_packages(),
     plantforms="Linux",
     python_requires=">=3.5",
-    install_requires=["Click",],
+    install_requires=["Click"],
     scripts=["python_extrac/extrac.py"],
     entry_points={"console_scripts": ["x=extrac:cli"]},
     classifiers=[
