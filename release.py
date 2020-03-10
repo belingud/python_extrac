@@ -1,5 +1,5 @@
 """
-$ pip install --user --upgrade setuptools wheel twine
+$ pip install --upgrade setuptools wheel twine
 $ python3 setup.py sdist bdist_wheel
 $ twine upload -u belingud -p [file_path]
 
@@ -22,11 +22,13 @@ $ git push
 #   0.0.1 --> 1.0.0
 import click
 
-_DOCKER = 'docker'
-_PYPI = 'pypi'
+_DOCKER = "docker"
+_PYPI = "pypi"
 
 _DOCKER_COMMAND = "docker build -t extrac_env:{version} ."
-_PYPI_COMMAND = 'rm dist/* && python3 setup.py sdist bdist_wheel && twine upload -u belingud dist/*'
+_PYPI_COMMAND = (
+    "rm dist/* && python3 setup.py sdist bdist_wheel && twine upload -u belingud dist/*"
+)
 
 
 def config_parse(config_path: str) -> dict:
@@ -34,7 +36,8 @@ def config_parse(config_path: str) -> dict:
     parsing yaml config file, return a dict of all config
     """
     import yaml
-    with open(config_path, 'r') as f:
+
+    with open(config_path, "r") as f:
         config = f.read()
     return yaml.load(config)
 
@@ -44,10 +47,11 @@ def call_command(command):
     execute system command
     """
     import os
+
     os.system(command)
 
 
-def version_control(current_version, ):
+def version_control(current_version,):
     # TODO: plus version on each platform
     new_version = current_version + 1
 
@@ -60,7 +64,7 @@ def command_handler(arg):
 
 
 @click.command()
-@click.argument('rel')
+@click.argument("rel")
 def main():
     pass
 

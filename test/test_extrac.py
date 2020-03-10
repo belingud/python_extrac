@@ -3,7 +3,7 @@ import io
 import os
 import unittest
 import subprocess
-import extrac
+from ..python_extrac import extrac
 
 
 class ExtracTest(unittest.TestCase):
