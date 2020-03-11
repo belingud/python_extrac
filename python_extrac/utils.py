@@ -10,6 +10,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import os
 import sys
 
 
@@ -55,7 +56,6 @@ def get_pwd_files(ctx, args, incomplete):
     list all files in current directory
     :return:
     """
-    import os
 
     return os.listdir(os.getcwd())
 
@@ -64,7 +64,6 @@ def valid_file(file_path):
     """
     unsupported file, exit the program
     """
-    import sys
 
     sys.exit('valid file type, "{file}" is not an compressed file'.format(file=file_path))
 
@@ -100,9 +99,10 @@ def make_full_path(file_path: str) -> str:
     :param file_path:
     :return:
     """
-    import os
-
-    return "{cwd}/{file_path}".format(cwd=os.getcwd(), file_path=file_path)
+    full_path = os.path.abspath(file_path)
+    if not os.path.isfile(full_path):
+        valid_file(file_path)
+    return full_path
 
 
 def call_shell(command: str):
@@ -111,7 +111,6 @@ def call_shell(command: str):
     :param command: format the command before call this method
     :return:
     """
-    import os
 
     return os.system(command)
 

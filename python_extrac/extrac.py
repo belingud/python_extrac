@@ -15,7 +15,7 @@ from .utils import check_is_file, decompression, call_shell
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
-help_string = """this is a magic command line tool to unpack archives, 
+help_string = """this is a magic command line tool to unpack archives,
                 only use one command "x FILE", enjoy it"""
 
 
