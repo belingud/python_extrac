@@ -14,7 +14,7 @@ import sys
 
 
 _UNZIP_COMMAND = "{unzip} {file_path}"
-_RM_COMMAND = "rm {file_path}"
+# _RM_COMMAND = "rm {file_path}"
 _ZIP_LIST = ("zip", "tar", "gz", "tgz", "bz2", "bz", "Z", "rar")
 
 _ZIP_ARG = {
@@ -55,8 +55,6 @@ def get_pwd_files(ctx, args, incomplete):
     list all files in current directory
     :return:
     """
-    # click.echo(ctx)
-    # click.echo(incomplete)
     import os
 
     return os.listdir(os.getcwd())
@@ -66,7 +64,6 @@ def valid_file(file_path):
     """
     unsupported file, exit the program
     """
-    # import click
     import sys
 
     sys.exit('valid file type, "{file}" is not an compressed file'.format(file=file_path))
@@ -120,6 +117,7 @@ def call_shell(command: str):
 
 
 def sh(command: str) -> str:
+    # TODO: change os.system() into subprocess.Popen().communicate()
     import subprocess
 
     call_shell = subprocess.Popen(
@@ -150,13 +148,13 @@ def decompression(file_path: str):
     )
 
 
-def del_file(file_path):
-    """
-    delete file when remove flag is True, after decompress file
-    :param file_path:
-    :return:
-    """
-    call_shell(_RM_COMMAND.format(file_path=file_path))
+# def del_file(file_path):
+#     """
+#     delete file when remove flag is True, after decompress file
+#     :param file_path:
+#     :return:
+#     """
+#     call_shell(_RM_COMMAND.format(file_path=file_path))
 
 
 def check_is_file(file_path):

@@ -6,11 +6,12 @@
 # @create date 2019-11-11
 # @desc [one command to unpack archives]
 
+import os
 import sys
 
 import click
 
-from python_extrac.utils import check_is_file, decompression, del_file, call_shell
+from .utils import check_is_file, decompression, call_shell
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
@@ -44,7 +45,7 @@ def cli(file_path, remove):
         check_is_file(file_path)
         decompression(full_path)
     if remove:
-        del_file(file_path)
+        os.remove(file_path)
 
 
 if __name__ == "__main__":
