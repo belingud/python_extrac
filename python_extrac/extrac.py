@@ -11,7 +11,7 @@ import sys
 
 import click
 
-from .utils import check_is_file, decompression, call_shell
+from python_extrac.utils import check_is_file, decompression, call_shell
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 

@@ -3,10 +3,10 @@ import io
 import os
 import unittest
 import subprocess
-from ..python_extrac import extrac
+from python_extrac import extrac
 
 
-class ExtracTest(unittest.TestCase):
+class TestExtrac(unittest.TestCase):
 
     tmp = sys.stdout
     file_path = f"{os.getcwd()}/test/data/linux-amd64-1.1.0.tar.gz"
@@ -28,3 +28,9 @@ class ExtracTest(unittest.TestCase):
         extrac.cli(self.file_path, 0)
         sys.stdout = self.tmp
         self.assertEqual(current_output, out_put)
+
+
+if __name__ == "__main__":
+    import pytest
+
+    pytest.main()

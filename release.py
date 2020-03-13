@@ -42,18 +42,20 @@ def config_parse(config_path: str) -> dict:
     return yaml.load(config)
 
 
-def call_command(command):
-    """
-    execute system command
-    """
-    import os
+def sh(command: str) -> str:
+    import subprocess
 
-    os.system(command)
+    call_shell = subprocess.Popen(
+        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
+    )
+    stdout, __ = call_shell.communicate()
+    return stdout
 
 
 def version_control(current_version,):
     # TODO: plus version on each platform
-    new_version = current_version + 1
+    # new_version = current_version + 1
+    pass
 
 
 def command_handler(arg):
@@ -64,7 +66,7 @@ def command_handler(arg):
 
 
 @click.command()
-@click.argument("rel")
+@click.argument("release")
 def main():
     pass
 
