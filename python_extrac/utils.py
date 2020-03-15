@@ -90,7 +90,6 @@ def judge_the_file(file_path: str) -> str:
         if not no_repeat_list[0].startswith("t"):
             no_repeat_list[0], no_repeat_list[1] = no_repeat_list[1], no_repeat_list[0]
         result.extend(no_repeat_list)
-    logger.debug(".".join(result))
     return ".".join(result)
 
 

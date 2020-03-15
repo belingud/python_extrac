@@ -34,7 +34,8 @@ def cli(file_path, remove):
     if not file_path:
         status = call_shell("x -h")
         if status:
-            sys.exit('you haven`t got an "x" command')
+            click.echo('you haven`t got an "x" command')
+            sys.exit(1)
     if isinstance(file_path, tuple):
         for file in file_path:
             full_path = click.format_filename(file)

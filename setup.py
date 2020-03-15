@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="extrac",
-    version="0.5.0",
+    version="0.6.0",
     description="decompression files",
     long_description_markdown_filename="README.md",
     py_modules=["python_extrac/extrac"],
