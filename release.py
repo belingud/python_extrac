@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# coding: utf-8
 """
 $ pip install --upgrade setuptools wheel twine
 $ python3 setup.py sdist bdist_wheel
@@ -17,77 +19,59 @@ $ git merge dev
 $ git push
 """
 import sys
-
+import os
 from loguru import logger
 
-# import bumpversion
 usage = """
-$ python release.py patch
+$ python release.py pypi patch
     0.0.1 --> 0.0.2
-$ python release.py minor:
+$ python release.py pypi minor:
     0.0.1 --> 0.1.0
-$ python release.py major:
+$ python release.py pypi major:
     0.0.1 --> 1.0.0
 """
-VALUE_TO_BUMP = {"patch": 2, "minor": 1, "major": 0}
+# VALUE_TO_BUMP = {"patch": 2, "minor": 1, "major": 0}
 
-BUILD_DOCKER = "docker" == sys.argv[1]
-PYPI_RELEASE = "pypi" == sys.argv[1]
+# build a docker image or release a pypi package
+# in first arg passed in command line
+# shoud be : docker or pypi
+RELEASE_PYPI = "pypi" == sys.argv[1]
 
-BUMP_VALUE = sys.argv[-1]
-if BUMP_VALUE not in VALUE_TO_BUMP:
-    print(f"usage: {usage}")
-    sys.exit(1)
+if RELEASE_PYPI:
+    # patch minor major
+    VERSION_BUMP = sys.argv[-1]
+    if VERSION_BUMP not in ("patch", "minor", "major"):
+        """
+        check the arg is leagal or exit
+        """
+        print(usage)
+        sys.exit(1)
 
-_DOCKER_COMMAND = "docker build -t extrac_env:{version} ."
-_PYPI_COMMAND = (
-    "rm dist/* && python3 setup.py sdist bdist_wheel && twine upload -u belingud dist/*"
-)
+# _DOCKER_COMMAND = "docker-compose build extrac"
+# check `dist` dir is empty or not, and bump a version, and make packages
+# after that upload to pypi, need to input password
+_PYPI_COMMAND = """if [ '`ls -A dist`' != '' ]; then rm dist/*; fi && bumversion --allow-dirty {bump}
+python3 setup.py sdist bdist_wheel && twine upload -u belingud dist/*"""
+# create a executable file by pyinstaller
 _PYINSTALLER_COMMAND = "pyinstalller -F python_extrac/extrac.py"
-
-
-def config_parse(config_path: str) -> dict:
-    """
-    parsing yaml config file, return a dict of all config
-    """
-    import yaml
-
-    with open(config_path, "r") as f:
-        config = f.read()
-    return yaml.safe_load(config)
 
 
 def sh(command: str) -> str:
     """
     excute a shell command, return stdout
     """
-    import subprocess
-
-    call_shell = subprocess.Popen(
-        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
-    )
-    stdout, err = call_shell.communicate()
-    return stdout if not err else err
-
-
-def version_control(current_version,):
-    # TODO: plus version on each platform
-    # new_version = current_version + 1
-    pass
-
-
-def command_handler(arg):
-    """
-    product a command by the arg passed by command line
-    """
-    pass
+    os.system(command)
 
 
 def main():
-    if BUILD_DOCKER:
-        logger.debug("build docker image")
-        sh(_DOCKER_COMMAND)
-    logger.debug(sys.argv)
+    if RELEASE_PYPI:
+        logger.debug("release pypi package")
+        sh(_PYPI_COMMAND.format(bump=VERSION_BUMP))
+        sh(_PYINSTALLER_COMMAND)
+    else:
+        print(f"usage: {usage}")
+
+    logger.debug(" ".join(sys.argv))
 
 
 if __name__ == "__main__":

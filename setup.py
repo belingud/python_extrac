@@ -2,15 +2,9 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
 
-# import yaml
-
-# with open("versions.yaml") as f:
-# versions = yaml.safe_load(f)
-# pypi_version = versions["pypi"]["version"]
-
 setup(
     name="extrac",
-    version="0.3.1",
+    version="0.4.0",
     description="decompression files",
     long_description_markdown_filename="README.md",
     py_modules=["python_extrac/extrac"],

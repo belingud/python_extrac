@@ -1,7 +1,9 @@
 version: "2.2"
 services: 
     extrac:
-        build: .
+        build: 
+            context: .
+            dockerfile: Dockerfile
         image: extrac:0.4
         container_name: extrac_test
         restart: on-failure
