@@ -15,7 +15,6 @@ import sys
 
 
 _UNZIP_COMMAND = "{unzip} {file_path}"
-# _RM_COMMAND = "rm {file_path}"
 _ZIP_LIST = ("zip", "tar", "gz", "tgz", "bz2", "bz", "Z", "rar")
 
 _ZIP_ARG = {
@@ -64,8 +63,10 @@ def valid_file(file_path):
     """
     unsupported file, exit the program
     """
-
-    sys.exit('valid file type, "{file}" is not an compressed file'.format(file=file_path))
+    call_shell(
+        'echo valid file type, "{file}" is not an compressed file'.format(file=file_path)
+    )
+    sys.exit(1)
 
 
 def judge_the_file(file_path: str) -> str:
@@ -147,15 +148,6 @@ def decompression(file_path: str):
     )
 
 
-# def del_file(file_path):
-#     """
-#     delete file when remove flag is True, after decompress file
-#     :param file_path:
-#     :return:
-#     """
-#     call_shell(_RM_COMMAND.format(file_path=file_path))
-
-
 def check_is_file(file_path):
     """
     check the arg is a file or not
@@ -167,12 +159,16 @@ def check_is_file(file_path):
     if not os.path.isfile(full_path):
         if not os.path.isdir(full_path):
             """ file_path is not a dir """
-            sys.exit(
-                '"{file_path}" is not a file, check again'.format(file_path=file_path)
+            call_shell(
+                'echo "{file_path}" is not a file, check again'.format(
+                    file_path=file_path
+                )
             )
+            sys.exit(1)
         """ file_path is a dir """
-        sys.exit(
-            '"{file_path}" is a directory, not a file, please check again'.format(
+        call_shell(
+            'echo "{file_path}" is a directory, not a file, please check again'.format(
                 file_path=file_path
             )
         )
+        sys.exit(1)
