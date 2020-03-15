@@ -50,10 +50,10 @@ if RELEASE_PYPI:
 # _DOCKER_COMMAND = "docker-compose build extrac"
 # check `dist` dir is empty or not, and bump a version, and make packages
 # after that upload to pypi, need to input password
-_PYPI_COMMAND = """if [ '`ls -A dist`' != '' ]; then rm dist/*; fi && bumversion --allow-dirty {bump}
+_PYPI_COMMAND = """if [ '`ls -A dist`' != '' ]; then rm dist/*; fi && bumpversion --allow-dirty {bump}
 python3 setup.py sdist bdist_wheel && twine upload -u belingud dist/*"""
 # create a executable file by pyinstaller
-_PYINSTALLER_COMMAND = "pyinstalller -F python_extrac/extrac.py"
+_PYINSTALLER_COMMAND = "pyinstaller -F python_extrac/extrac.py"
 
 
 def sh(command: str) -> str:
