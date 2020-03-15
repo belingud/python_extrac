@@ -8,29 +8,30 @@ from python_extrac import extrac
 
 class TestExtrac(unittest.TestCase):
 
-    tmp = sys.stdout
-    file_path = f"{os.getcwd()}/test/data/linux-amd64-1.1.0.tar.gz"
+    # tmp = sys.stdout
+    file_path = "linux-amd64-1.1.0.tar.gz"
 
     def make_command(self, file_path):
-        command = f"tar -xzvf {file_path}"
-        # print('right command is aaaaaaaaaaaaaaaaaaaa')
-        print(command)
+        return f"tar -zxvf {file_path}"
 
     def test_extrac_command_output(self):
-        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-        print(os.getcwd())
+        os.chdir(os.path.abspath("test/data/"))
         p = subprocess.Popen(
-            self.make_command(self.file_path), stdout=subprocess.PIPE, shell=True
+            "tar -zxvf linux-amd64-1.1.0.tar.gz",
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            shell=True,
         )
-        current_output = p.stdout.read().decode("utf-8")
+        # current_output = p.stdout.read().decode("utf-8")
+        current_output, err = p.communicate()
+        print("current output is ::", current_output)
+        print("err is ::", err)
+        tmp = sys.stdout
         out_put = io.StringIO()
         sys.stdout = out_put
         extrac.cli(self.file_path, 0)
-        sys.stdout = self.tmp
-        self.assertEqual(current_output, out_put)
-
-
-if __name__ == "__main__":
-    import pytest
-
-    pytest.main()
+        # print(out_put)
+        cli_out = out_put.read().decode("utf-8")
+        print(cli_out)
+        sys.stdout = tmp
+        self.assertEqual(current_output, cli_out)
