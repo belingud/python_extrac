@@ -11,8 +11,9 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import os
+import subprocess
 import sys
-
+import click
 
 _UNZIP_COMMAND = "{unzip} {file_path}"
 _ZIP_LIST = ("zip", "tar", "gz", "tgz", "bz2", "bz", "Z", "rar")
@@ -63,7 +64,7 @@ def valid_file(file_path):
     """
     unsupported file, exit the program
     """
-    call_shell(
+    call(
         'echo valid file type, "{file}" is not an compressed file'.format(file=file_path)
     )
     sys.exit(1)
@@ -105,33 +106,27 @@ def make_full_path(file_path: str) -> str:
     return full_path
 
 
-def call_shell(command: str):
+def call(command: str, **kwargs) -> int:
     """
     call shell command
     :param command: format the command before call this method
     :return:
     """
 
-    return os.system(command)
-
-
-def sh(command: str) -> str:
-    # TODO: change os.system() into subprocess.Popen().communicate()
-    import subprocess
-
-    call_shell = subprocess.Popen(
-        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
-    )
-    stdout, __ = call_shell.communicate()
-    return stdout
+    return subprocess.call(command, shell=True, text=True, **kwargs)
 
 
 def command_exists(command: str) -> bool:
     """
     judge a command exists or not, provide a bool return
     """
-    exists = call_shell('command -v {} || { echo "false"; }')
-    return False if exists == b"false\n" else True
+    exists, __ = subprocess.Popen(
+        'command -v %s || { echo "false"; }' % command,
+        stdout=subprocess.PIPE,
+        shell=True,
+        text=True,
+    ).communicate()
+    return False if exists == "false\n" else True
 
 
 def decompression(file_path: str):
@@ -140,7 +135,7 @@ def decompression(file_path: str):
     :param file_path:
     :return:
     """
-    call_shell(
+    call(
         _UNZIP_COMMAND.format(
             unzip=_ZIP_ARG[judge_the_file(file_path)], file_path=file_path
         )
@@ -151,22 +146,18 @@ def check_is_file(file_path):
     """
     check the arg is a file or not
     """
-    import sys
-    import os
 
     full_path = make_full_path(file_path)
     if not os.path.isfile(full_path):
         if not os.path.isdir(full_path):
             """ file_path is not a dir """
-            call_shell(
-                'echo "{file_path}" is not a file, check again'.format(
-                    file_path=file_path
-                )
+            click.echo(
+                '"{file_path}" is not a file, check again'.format(file_path=file_path)
             )
             sys.exit(1)
         """ file_path is a dir """
-        call_shell(
-            'echo "{file_path}" is a directory, not a file, please check again'.format(
+        click.echo(
+            '"{file_path}" is a directory, not a file, please check again'.format(
                 file_path=file_path
             )
         )

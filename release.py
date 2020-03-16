@@ -19,8 +19,9 @@ $ git merge dev
 $ git push
 """
 import sys
-import os
+import subprocess
 from loguru import logger
+import click
 
 usage = """
 $ python release.py pypi patch
@@ -44,7 +45,7 @@ if RELEASE_PYPI:
         """
         check the arg is leagal or exit
         """
-        print(usage)
+        click.echo(usage)
         sys.exit(1)
 
 # _DOCKER_COMMAND = "docker-compose build extrac"
@@ -53,23 +54,26 @@ if RELEASE_PYPI:
 _PYPI_COMMAND = """if [ '`ls -A dist`' != '' ]; then rm dist/*; fi && bumpversion --allow-dirty {bump}
 python3 setup.py sdist bdist_wheel && twine upload -u belingud dist/*"""
 # create a executable file by pyinstaller
-_PYINSTALLER_COMMAND = "pyinstaller -F python_extrac/extrac.py"
+_PYINSTALLER_COMMAND = (
+    "pyenv deactivate && pyinstaller -F python_extrac/extrac.py && pyenv activate extrac"
+)
 
 
-def sh(command: str) -> str:
+def sh(command: str):
     """
-    excute a shell command, return stdout
+    excute a shell command
     """
-    os.system(command)
+    subprocess.call(command, shell=True)
 
 
 def main():
     if RELEASE_PYPI:
         logger.debug("release pypi package")
         sh(_PYPI_COMMAND.format(bump=VERSION_BUMP))
+        logger.debug("pyinstaller executable file producting")
         sh(_PYINSTALLER_COMMAND)
     else:
-        print(f"usage: {usage}")
+        click.echo(f"usage: {usage}")
 
     logger.debug(" ".join(sys.argv))
 
