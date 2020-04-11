@@ -11,7 +11,7 @@ import sys
 
 import click
 
-from python_extrac.utils import check_is_file, decompression, call_shell
+from python_extrac.utils import check_is_file, decompression, call
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
@@ -32,7 +32,7 @@ help_string = """this is a magic command line tool to unpack archives,
 @click.argument("file_path", type=click.Path(exists=True), default=None, nargs=-1)
 def cli(file_path, remove):
     if not file_path:
-        status = call_shell("x -h")
+        status = call("x -h")
         if status:
             click.echo('you haven`t got an "x" command')
             sys.exit(1)
