@@ -1,6 +1,6 @@
 [project]
 name = "python_extrac"
-version = "0.7.0"
+version = "0.6.0"
 description = "One magic word to unpack archive."
 authors = [
     { name = "belingud", email = "zyx@lte.ink" },
@@ -63,4 +63,5 @@ includes = ["python_extrac"]
 dev = [
     "pytest>=8.2.2",
     "pdm-backend>=2.3.2",
+    "bump2version>=1.0.1",
 ]

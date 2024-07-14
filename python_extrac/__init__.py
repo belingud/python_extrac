@@ -28,3 +28,4 @@ WARNING:You have to recognize that import os, sys or other packages,
 """
 
 __all__ = []
+__version__ = "0.6.0"
