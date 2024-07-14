@@ -18,10 +18,16 @@ $ git checkout master
 $ git merge dev
 $ git push
 """
-import sys
+
+import logging
 import subprocess
-from loguru import logger
+import sys
+from typing import Union
+
 import click
+
+logger = logging.getLogger("release")
+logger.setLevel(logging.DEBUG)
 
 usage = """
 $ python release.py pypi patch
@@ -37,7 +43,7 @@ $ python release.py pypi major:
 # in first arg passed in command line
 # shoud be : docker or pypi
 RELEASE_PYPI = "pypi" == sys.argv[1]
-
+VERSION_BUMP: Union[str, None]
 if RELEASE_PYPI:
     # patch minor major
     VERSION_BUMP = sys.argv[-1]
@@ -46,7 +52,7 @@ if RELEASE_PYPI:
         check the arg is leagal or exit
         """
         click.echo(usage)
-        sys.exit(1)
+        raise click.exceptions.Exit(1)
 
 # _DOCKER_COMMAND = "docker-compose build extrac"
 # check `dist` dir is empty or not, and bump a version, and make packages
@@ -54,9 +60,7 @@ if RELEASE_PYPI:
 _PYPI_COMMAND = """if [ '`ls -A dist`' != '' ]; then rm dist/*; fi && bumpversion --allow-dirty {bump}
 python3 setup.py sdist bdist_wheel && twine upload -u belingud dist/*"""
 # create a executable file by pyinstaller
-_PYINSTALLER_COMMAND = (
-    "pyenv deactivate && pyinstaller -F python_extrac/extrac.py && pyenv activate extrac"
-)
+_PYINSTALLER_COMMAND = "pyenv deactivate && pyinstaller -F python_extrac/extrac.py && pyenv activate extrac"
 
 
 def sh(command: str):

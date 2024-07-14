@@ -1,12 +1,11 @@
 import os
-import unittest
 import subprocess
+import unittest
 
 from python_extrac import extrac
 
 
 class TestExtrac(unittest.TestCase):
-
     # tmp = sys.stdout
     file_path = "test/data/linux-amd64-1.1.0.tar.gz"
 

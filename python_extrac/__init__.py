@@ -27,5 +27,5 @@ WARNING:You have to recognize that import os, sys or other packages,
         used only in commandline, and you can not use any variable in this package
 """
 
-
 __all__ = []
+__version__ = "0.7.0"
