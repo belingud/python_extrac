@@ -1,6 +1,6 @@
 [project]
 name = "python_extrac"
-version = "0.6.0"
+version = "0.7.0"
 description = "One magic word to unpack archive."
 authors = [
     { name = "belingud", email = "zyx@lte.ink" },
