@@ -1,38 +1,68 @@
 # extrac
-One magic word to unpack archive.一个命令解压所有压缩文件
 
-> Support `rar`, `zip`, `tar.gz`, `gz`, `Z`, `tar.Z`, `bz2`, `tar.bz2`,  `bz`, `tar.bz` archives for now.
+Homepage: https://github.com/belingud/python_extrac
+
+One magic word to unpack archive, pure python implementation, no command-line tools required.
+
+一个命令解压所有压缩文件，纯Python实现，不依赖任何命令行工具。
+
+> Support 7z(.7z),AR(.a,.ar),RAR(.rar),ZIP(.zip,.jar),TAR(.tar.gz,.tgz,.tar.bz
+  ,.tar.bz2,.tbz,.tbz2,.tar.xz,.txz),GZIP(.gz),compress(.Z),CAB(.cab),XZ(.xz,.
+  lzma),BZIP2(.bz2),BZIP(.bz),ZSTD(.zstd,.zst),DEB(deb) archives for now.
 >
-> 目前支持`rar`, `zip`, `tar.gz`, `gz`, `Z`, `tar.Z`, `bz2`, `tar.bz2`,  `bz`, `tar.bz`后缀的压缩文件。
+> 目前支持7z(.7z),AR(.a,.ar),RAR(.rar),ZIP(.zip,.jar),TAR(.tar.gz,.tgz,.tar.bz
+  ,.tar.bz2,.tbz,.tbz2,.tar.xz,.txz),GZIP(.gz),compress(.Z),CAB(.cab),XZ(.xz,.
+  lzma),BZIP2(.bz2),BZIP(.bz),ZSTD(.zstd,.zst),DEB(deb) 后缀的压缩文件。
 
+# Install
 
-# USAGE
+Recommended installation with pipx:
 
-## Not have python
+```shell
+$ pipx install extrac
+  installed package extrac x.x.x, installed using Python 3.12.3
+  These apps are now globally available
+    - extrac
+    - x
+done! ✨ 🌟 ✨
+```
 
-1. Download release file at [release page](https://github.com/belingud/extrac/releases)
+Support Format:
 
-2. Then move the release file into `/usr/local/bin/`, now you can use in the command line as `extrac`
+- [x] .ar/.a
+- [x] .bz2/.bz/.dmg
+- [x] .cab
+- [x] .gz
+- [x] .xz
+- [x] .7z
+- [x] .Z
+- [x] .tar.gz/.tgz
+- [x] .tar.bz/.tbz
+- [x] .tar.xz/.txz
+- [x] .tar
+- [x] .rar
+- [x] .zip/.jar
+- [x] .zstd/.zst
+- [x] .deb
+- [x] .xz/.lzma
+- [ ] .arj
+- [ ] .rp
+- [ ] .pkg
 
-3. also i suggest you to set a alias, my real wish is a world `x` could unpack all archives, i'm working on it. so the alias could be like `alias x="extrac"`, append it in your `~/.bashrc` or `~/.zshrc` for one user, also you can apped it into `/etc/profile`, for all user. Then run `source ~/.bashrc`, `source ~/.zshrc` for one user, or `source /etc/profile` for all users.
+Usage:
 
-## in python way
+Contains two commands x and extrac.
 
-if you got python on your device, you can use `pip3 install extrac` to install this tool, and use it in command line directly by `x FILE`
+> Not support specified output filename yet
 
-# 用法
-
-## 没有python
-
-1. 在[下载页面](https://github.com/belingud/extrac/releases)下载release文件extrac
-
-2. 将文件移动到`/usr/local/bin`目录下，现在你可以用`extrac`命令来解压文件。
-
-3. 你也可以设置一个别名，将来的python包版本，会直接设定为别名`x`，可以在`~/.bashrc`或`~/.zshrc`里面追加一句`alias x="extrac"`对单个用户生效，或者追加到`/etc/profile`对所有用户生效，运行`source ~/.bashrc` 、`source ~/.zshrc`或`source /etc/profile`来立即生效。
-
-## 使用python
-
-如果你设备上有python，可以直接通过`pip3 install extrac`来安装这个工具，然后在命令行使用`x FILE`命令来解压文件。
+```shell
+# Auto extract to current directory as sample/
+x test/archives/sample.zip
+extrac test/archives/sample.zip
+# Specified output directory as test/sample/
+x test/archives/sample.tar.bz test/
+extrac test/archives/sample.tar.bz test/
+```
 
 # TO BE CONTINUE
 

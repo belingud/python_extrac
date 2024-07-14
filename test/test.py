@@ -10,7 +10,7 @@ def main(items):
 
 
 class Solution:
-    def tree2str(self, t: None):
+    def tree2str(t: None):
         if t is None:
             return ""
         elif t.left is not None and t.right is not None:

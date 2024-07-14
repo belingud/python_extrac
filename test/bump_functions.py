@@ -2,7 +2,6 @@ import re
 
 
 class NumericFunction(object):
-
     """
     This is a class that provides a numeric function for version parts.
     It simply starts with the provided first_value (0 by default) and
@@ -15,8 +14,7 @@ class NumericFunction(object):
 
     FIRST_NUMERIC = re.compile("([^\d]*)(\d+)(.*)")
 
-    def __init__(self, first_value=None):
-
+    def __init__(first_value=None):
         if first_value is not None:
             try:
                 part_prefix, part_numeric, part_suffix = self.FIRST_NUMERIC.search(
@@ -34,8 +32,10 @@ class NumericFunction(object):
         self.first_value = str(first_value)
         self.optional_value = self.first_value
 
-    def bump(self, value):
-        part_prefix, part_numeric, part_suffix = self.FIRST_NUMERIC.search(value).groups()
+    def bump(value):
+        part_prefix, part_numeric, part_suffix = self.FIRST_NUMERIC.search(
+            value
+        ).groups()
         bumped_numeric = int(part_numeric) + 1
 
         return "".join([part_prefix, str(bumped_numeric), part_suffix])
@@ -47,7 +47,6 @@ print(func.bump("0.1.0"))
 
 
 class ValuesFunction(object):
-
     """
     This is a class that provides a values list based function for version parts.
     It is initialized with a list of values and iterates through them when
@@ -58,8 +57,7 @@ class ValuesFunction(object):
     you get a ValueError exception.
     """
 
-    def __init__(self, values, optional_value=None, first_value=None):
-
+    def __init__(values, optional_value=None, first_value=None):
         if len(values) == 0:
             raise ValueError("Version part values cannot be empty")
 
@@ -89,7 +87,7 @@ class ValuesFunction(object):
 
         self.first_value = first_value
 
-    def bump(self, value):
+    def bump(value):
         try:
             print(self._values.index(value))
             return self._values[self._values.index(value) + 1]
