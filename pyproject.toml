@@ -1,5 +1,5 @@
 [project]
-name = "python_extrac"
+name = "extrac"
 version = "0.7.0"
 description = "One magic word to unpack archive."
 authors = [
