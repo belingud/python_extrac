@@ -1,9 +1,9 @@
 import io
+from pathlib import Path
 
 import pytest
 
-from python_extrac.unlzw import unlzw, unlzw_chunked
-from python_extrac.unlzw.unpack import unlzw_chunked
+from python_extrac.unlzw import unlzw_chunked
 
 
 def generate_compressed_data():
@@ -12,9 +12,9 @@ def generate_compressed_data():
 
 
 def test_unlzw_chunked_normal():
-    compressed_data = generate_compressed_data()
-    file = io.BytesIO(compressed_data)
-    file = open("test/archives/sample.Z", "rb")
+    # compressed_data = generate_compressed_data()
+    filepath = Path(__file__).resolve().parent / "archives/sample.Z"
+    file = filepath.open("rb")
     decompressed_data = b""
     # for chunk in unlzw_chunked(file):
     #     print('chunk::::::::', chunk)

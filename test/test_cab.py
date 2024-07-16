@@ -43,7 +43,6 @@ def test_unpack_cab(create_cab_file, tmp_path, capfd):
     captured = capfd.readouterr()
     assert "NotSupportedError" not in captured.out
     assert "CorruptionError" not in captured.out
-    clean_output_folder(output_folder)
 
 
 def test_unpack_cab_with_corrupted_file(tmp_path, capfd):
