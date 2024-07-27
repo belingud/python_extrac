@@ -19,7 +19,7 @@ from filetype import Type
 
 _PYTHON = sys.executable
 
-_UNPACK_TAR = [_PYTHON, "-m", "tarfile", "-e"]
+_UNPACK_TAR = [_PYTHON, "-W", "ignore", "-m", "tarfile", "-e"]
 _UNPACK_ZSTD = [_PYTHON, "-m", "python_extrac.zstd"]
 _EXTRACT_CMD: OrderedDict[str, list] = OrderedDict(
     {
