@@ -6,10 +6,13 @@ import pytest
 
 from python_extrac.deb import unpack_deb
 
+ROOT = Path(__file__).resolve().parent.parent
+
 
 @pytest.fixture
 def create_deb_file(tmp_path):
-    deb_file_path = Path("mypackage.deb").resolve()
+    deb_file_path = ROOT / "test/mypackage.deb"
+    print("deb_file_path.......", deb_file_path)
     if not deb_file_path.exists():
         check_call(
             [
