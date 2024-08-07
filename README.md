@@ -1,5 +1,6 @@
 # extrac
 [![PyPI version](https://img.shields.io/pypi/v/extrac?style=for-the-badge)](https://pypi.org/project/extrac/) [![License](https://img.shields.io/github/license/belingud/python_extrac.svg?style=for-the-badge)](https://opensource.org/licenses/MIT) ![Static Badge](https://img.shields.io/badge/language-Python-%233572A5?style=for-the-badge) ![PyPI - Downloads](https://img.shields.io/pypi/dm/extrac?logo=pypi&style=for-the-badge)
+![Pepy Total Downlods](https://img.shields.io/pepy/dt/extrac?style=for-the-badge&logo=python)
 
 
 Homepage: https://github.com/belingud/python_extrac
