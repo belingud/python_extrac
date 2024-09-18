@@ -1,6 +1,6 @@
 [project]
 name = "extrac"
-version = "0.7.1"
+version = "0.7.2"
 description = "One magic word to unpack archive."
 authors = [
     { name = "belingud", email = "zyx@lte.ink" },
@@ -58,6 +58,9 @@ distribution = true
 
 [tool.pdm.build]
 includes = ["python_extrac"]
+
+[tool.pdm.scripts]
+bump = "bump2version {args}"
 
 [tool.pdm.dev-dependencies]
 dev = [

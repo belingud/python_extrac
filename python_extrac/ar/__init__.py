@@ -13,10 +13,10 @@ def unpack_ar(
     """
     Extract ar archive to output_path directory
     """
-    with arpy.Archive(file_path) as archive:
+    with arpy.Archive(str(file_path)) as archive:
         archive.read_all_headers()
         for member in archive.archived_files:
-            member: cast(bytes, member)
+            member = cast(bytes, member)
             member_path = os.path.join(output_path, member.decode())
             # Make sure inside directory exists
             Path(member_path).parent.mkdir(parents=True, exist_ok=True)
