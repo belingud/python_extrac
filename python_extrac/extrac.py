@@ -12,6 +12,7 @@ from typing import cast
 import click
 from click import Argument, Context
 
+from python_extrac import __version__
 from python_extrac.utils import extract_archive, extract_to, get_file_format
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
@@ -60,7 +61,14 @@ def check_arguments(
     is_flag=True,
     required=False,
 )
-def cli(files, work_dir, remove):
+@click.option(
+    "--encoding",
+    default=None,
+    help="file encoding, only support zip and xz file",
+    required=False,
+)
+@click.version_option(version=__version__)
+def cli(files, work_dir, remove, encoding):
     """One command line tool to extract archives."""
     if not work_dir:
         work_dir: str = os.getcwd()
@@ -78,7 +86,12 @@ def cli(files, work_dir, remove):
         except ValueError:
             _r_path = dir_path_obj
         click.echo(f"extracting {file} to {_r_path}")
-        extract_archive(file_path=file, output=extract_dir, file_format=file_format)
+        extract_archive(
+            file_path=file,
+            output=extract_dir,
+            file_format=file_format,
+            encoding=encoding,
+        )
     if remove:
         os.unlink(files)
 

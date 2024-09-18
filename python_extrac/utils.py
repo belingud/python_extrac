@@ -27,7 +27,7 @@ _UNPACK_ZSTD = [_PYTHON, "-m", "python_extrac.zstd"]
 _EXTRACT_CMD: OrderedDict[str, list] = OrderedDict(
     {
         "rar": [_PYTHON, "-m", "rarfile", "-e"],
-        "zip": [_PYTHON, "-m", "zipfile", "-e"],
+        "zip": [_PYTHON, "-m", "python_extrac.zip"],
         "tar.gz": _UNPACK_TAR,  # tar.gz should ahead of gz
         "tar.bz2": _UNPACK_TAR,  # tar.bz2 should ahead of bz2
         "tar.bz": _UNPACK_TAR,  # tar.bz should ahead of bz
@@ -77,8 +77,14 @@ def confirm_out(filepath: Union[str, Path], output: Optional[Union[str, Path]] =
         file_format = get_file_format(filepath)
         output = Path.cwd() / path.name[: -len(file_format) - 1]
         output.mkdir(parents=True, exist_ok=True)
-        output = output.relative_to(Path.cwd())
-    if not Path(output).is_dir():
+        try:
+            output = output.relative_to(Path.cwd())
+        except ValueError:
+            pass
+    output = Path(output)
+    if not output.exists():
+        output.mkdir(parents=True, exist_ok=True)
+    if not output.is_dir():
         raise FileNotFoundError(f'"{output}" is not a directory')
     return str(filepath), str(output)
 
@@ -152,11 +158,12 @@ def extract_to(file: str, work_dir: str, extension: str = None) -> str:
     return str(output)
 
 
-def extract_archive(file_path: str, output: str = None, file_format: str = None) -> None:
+def extract_archive(file_path: str, output: str = None, file_format: str = None, encoding: Optional[str] = None) -> None:
     """
     :param file_path:
     :param output:
     :param file_format:
+    :param encoding:
     :return:
     """
     file_format = file_format or get_file_format(file_path)
@@ -167,6 +174,11 @@ def extract_archive(file_path: str, output: str = None, file_format: str = None)
     cmd.append(file_path)
     if output:
         cmd.append(output)
+    if encoding:
+        if file_format in ("zip", "xz"):
+            cmd.append(f"--encoding={encoding}")
+        else:
+            print(f"{file_format} doesn't support --encoding, ignore")
     call(cmd)
 
 
