@@ -67,6 +67,19 @@ x test/archives/sample.tar.bz test/
 extrac test/archives/sample.tar.bz test/
 ```
 
+# encoding
+
+Encoding support types:
+
+- zip
+- xz
+
+example:
+
+```shell
+x test/archives/sample.zip --encoding gbk
+```
+
 # TO BE CONTINUE
 
 # 未完待续
