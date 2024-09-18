@@ -7,6 +7,7 @@
 
 import shutil
 import sys
+import tarfile
 from collections import OrderedDict
 from pathlib import Path
 from subprocess import CompletedProcess, run
@@ -17,6 +18,8 @@ import filetype
 from click.exceptions import Exit
 from filetype import Type
 
+defenc = sys.getdefaultencoding()
+
 _PYTHON = sys.executable
 
 _UNPACK_TAR = [_PYTHON, "-W", "ignore", "-m", "tarfile", "-e"]
@@ -24,7 +27,7 @@ _UNPACK_ZSTD = [_PYTHON, "-m", "python_extrac.zstd"]
 _EXTRACT_CMD: OrderedDict[str, list] = OrderedDict(
     {
         "rar": [_PYTHON, "-m", "rarfile", "-e"],
-        "zip": [_PYTHON, "-m", "zipfile", "-e"],
+        "zip": [_PYTHON, "-m", "zipfile", "--metadata-encoding", defenc, "-e"],
         "tar.gz": _UNPACK_TAR,  # tar.gz should ahead of gz
         "tar.bz2": _UNPACK_TAR,  # tar.bz2 should ahead of bz2
         "tar.bz": _UNPACK_TAR,  # tar.bz should ahead of bz
@@ -61,9 +64,7 @@ _TAR_MODE = {
 }
 
 
-def confirm_out(
-    filepath: Union[str, Path], output: Optional[Union[str, Path]] = None
-) -> tuple[str, str]:
+def confirm_out(filepath: Union[str, Path], output: Optional[Union[str, Path]] = None) -> tuple[str, str]:
     """
     get output path, if output is None, will use current directory
     :return:
@@ -151,9 +152,7 @@ def extract_to(file: str, work_dir: str, extension: str = None) -> str:
     return str(output)
 
 
-def extract_archive(
-    file_path: str, output: str = None, file_format: str = None
-) -> None:
+def extract_archive(file_path: str, output: str = None, file_format: str = None) -> None:
     """
     :param file_path:
     :param output:

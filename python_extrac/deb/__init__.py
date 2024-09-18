@@ -1,10 +1,13 @@
 import os
+import sys
 import tarfile
 from typing import cast
 
 import arpy
 
 from python_extrac.utils import get_file_format, get_tarfile_mode
+
+defenc = sys.getdefaultencoding()
 
 
 def unpack_deb(deb_file, extract_to):
@@ -16,8 +19,8 @@ def unpack_deb(deb_file, extract_to):
     with arpy.Archive(deb_file) as archive:
         archive.read_all_headers()
         for name in archive.archived_files:
-            name: cast(bytes, name)
-            name_str: str = name.decode("utf-8")
+            name = cast(bytes, name)
+            name_str: str = name.decode(defenc)
             file_path = os.path.join(extract_to, name_str)
             with open(file_path, "wb") as out_file:
                 out_file.write(archive.archived_files[name].read())
