@@ -59,6 +59,9 @@ distribution = true
 [tool.pdm.build]
 includes = ["python_extrac"]
 
+[tool.pdm.scripts]
+bump = "bump2version {args}"
+
 [tool.pdm.dev-dependencies]
 dev = [
     "pytest>=8.2.2",
