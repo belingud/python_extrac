@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 ---
+## [0.8.0](https://github.com/belingud/gptcomet/compare/v0.7.3..v0.8.0) - 2024-09-18
+
+### ⛰️  Features
+
+- Enhance argument parsing and versioning system, and encoding support - ([4263ace](https://github.com/belingud/gptcomet/commit/4263ace92cb5dbf4123bcf18dcb9a8dbe3c6a555)) - belingud
+
+### 🐛 Bug Fixes
+
+- Dockerfile to reduce vulnerabilities - ([bf5b776](https://github.com/belingud/gptcomet/commit/bf5b776c5a5e370356c02d44a96b2070586e2feb)) - snyk-bot
+
+### 📚 Documentation
+
+- add encoding support documentation - ([4e343a0](https://github.com/belingud/gptcomet/commit/4e343a003a673b56c2b990306756942ce852198c)) - belingud
+- update changelog file with new version and changes - ([cdee702](https://github.com/belingud/gptcomet/commit/cdee7029892ac4f65939f19577c36831ac1c0b1a)) - belingud
+
+
+---
 ## [0.7.3](https://github.com/belingud/gptcomet/compare/v0.7.2..v0.7.3) - 2024-09-18
 
 ### 🐛 Bug Fixes
