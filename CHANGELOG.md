@@ -1,6 +1,18 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+---
+## [0.7.3](https://github.com/belingud/gptcomet/compare/v0.7.2..v0.7.3) - 2024-09-18
+
+### 🐛 Bug Fixes
+
+- improve extraction path handling and zip command - ([4d8dd62](https://github.com/belingud/gptcomet/commit/4d8dd62ac7e355dbd4854ef0d8adea9297a087bd)) - belingud
+
+### 📚 Documentation
+
+- update changelog file and cliff configuration - ([f806693](https://github.com/belingud/gptcomet/commit/f80669399abeca67f0048129b9a833b72f6ca135)) - belingud
+
+
 
 ---
 ## [0.7.2](https://github.com/belingud/gptcomet/compare/v0.7.1..v0.7.2) - 2024-09-18

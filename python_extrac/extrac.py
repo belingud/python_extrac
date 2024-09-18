@@ -73,7 +73,11 @@ def cli(files, work_dir, remove):
         extract_dir = extract_to(file=file, work_dir=work_dir, extension=file_format)
         dir_path_obj = Path(extract_dir)
         dir_path_obj.mkdir(parents=True, exist_ok=True)
-        click.echo(f"extracting {file} to {dir_path_obj.relative_to(Path.cwd())}")
+        try:
+            _r_path = dir_path_obj.relative_to(Path.cwd())
+        except ValueError:
+            _r_path = dir_path_obj
+        click.echo(f"extracting {file} to {_r_path}")
         extract_archive(file_path=file, output=extract_dir, file_format=file_format)
     if remove:
         os.unlink(files)

@@ -27,7 +27,7 @@ _UNPACK_ZSTD = [_PYTHON, "-m", "python_extrac.zstd"]
 _EXTRACT_CMD: OrderedDict[str, list] = OrderedDict(
     {
         "rar": [_PYTHON, "-m", "rarfile", "-e"],
-        "zip": [_PYTHON, "-m", "zipfile", "--metadata-encoding", defenc, "-e"],
+        "zip": [_PYTHON, "-m", "zipfile", "-e"],
         "tar.gz": _UNPACK_TAR,  # tar.gz should ahead of gz
         "tar.bz2": _UNPACK_TAR,  # tar.bz2 should ahead of bz2
         "tar.bz": _UNPACK_TAR,  # tar.bz should ahead of bz
