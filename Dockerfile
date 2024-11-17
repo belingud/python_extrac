@@ -1,4 +1,4 @@
-FROM python:3.12.5-alpine
+FROM python:3.14.0a1-alpine
 
 COPY test-requirements.txt /code/
 RUN apk add --no-cache vim  && \
